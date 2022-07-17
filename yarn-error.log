@@ -1,0 +1,47 @@
+Arguments: 
+  /Users/gorski/.nvm/versions/node/v17.4.0/bin/node /Users/gorski/.nvm/versions/node/v17.4.0/bin/yarn add concurently
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.10/bin:/Users/gorski/.nvm/versions/node/v17.4.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/gorski/bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  17.4.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/concurently: Not found
+      at Request.params.callback [as _callback] (/Users/gorski/.nvm/versions/node/v17.4.0/lib/node_modules/yarn/lib/cli.js:66138:18)
+      at Request.self.callback (/Users/gorski/.nvm/versions/node/v17.4.0/lib/node_modules/yarn/lib/cli.js:140883:22)
+      at Request.emit (node:events:520:28)
+      at Request.<anonymous> (/Users/gorski/.nvm/versions/node/v17.4.0/lib/node_modules/yarn/lib/cli.js:141855:10)
+      at Request.emit (node:events:520:28)
+      at IncomingMessage.<anonymous> (/Users/gorski/.nvm/versions/node/v17.4.0/lib/node_modules/yarn/lib/cli.js:141777:12)
+      at Object.onceWrapper (node:events:639:28)
+      at IncomingMessage.emit (node:events:532:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "creche",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
