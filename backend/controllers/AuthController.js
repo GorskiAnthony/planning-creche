@@ -74,6 +74,18 @@ class AuthController {
       res.status(400).json({ error: err.message });
     }
   }
+
+  // Method to logout a user
+  static async logout(req, res) {
+    try {
+      res
+        .clearCookie("user_session")
+        .status(200)
+        .json({ message: "User logged out" });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
 }
 
 module.exports = AuthController;
