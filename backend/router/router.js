@@ -14,12 +14,15 @@ router.post("/auth/register", AuthController.register);
 router.delete("/auth/logout", AuthController.logout);
 
 /**
- * @api {get} /calendars Get calendar by id
  * @api {post} /calendars Create new calendar
+ * @api {get} /calendars Get calendar by id
+ * @api {update} /calendars/:id Update calendar
  * @api {delete} /calendars/:id Create new calendar
  */
-router.get("/calendars", userMiddleware, CalendarController.getCalendar);
-router.post("/calendars", userMiddleware, CalendarController.createEvent);
+router.post("/calendars", userMiddleware, CalendarController.create);
+router.get("/calendars/:id", userMiddleware, CalendarController.get);
+router.get("/calendars", userMiddleware, CalendarController.getAll);
+router.put("/calendars/:id", userMiddleware, CalendarController.update);
 router.delete("/calendars/:id", userMiddleware, CalendarController.delete);
 
 module.exports = router;
