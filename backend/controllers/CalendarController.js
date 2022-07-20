@@ -13,10 +13,7 @@ class CalendarController {
       const event = await prisma.event.create({
         // J'assingne les données envoyées
         data: {
-          name: req.body.name,
-          description: req.body.description,
-          startAt: new Date(req.body.start),
-          endAt: new Date(req.body.end),
+          ...req.body,
           // Puis je vais faire le lien avec l'utilisateur connecté
           // Via une relation manyToMany, je vais créer une relation entre event et user
           users: {
@@ -132,10 +129,7 @@ class CalendarController {
           id: parseInt(req.params.id),
         },
         data: {
-          name: req.body.name,
-          description: req.body.description,
-          startAt: new Date(req.body.start),
-          endAt: new Date(req.body.end),
+          ...req.body,
         },
       });
       return res.status(200).json({ updateEvent });
@@ -153,24 +147,12 @@ class CalendarController {
    */
   static async delete(req, res) {
     try {
-      // Delete relation between event and user
-      const deleteRelation = await prisma.EventOnUser.delete({
+      const deleteEvent = await prisma.event.delete({
         where: {
-          eventId_userId: {
-            eventId: parseInt(req.params.id),
-            userId: req.user.id,
-          },
+          id: parseInt(req.params.id),
         },
       });
-      if (deleteRelation) {
-        // Delete event
-        const deleteEvent = await prisma.event.delete({
-          where: {
-            id: parseInt(req.params.id),
-          },
-        });
-        return res.status(200).json({ deleteEvent });
-      }
+      return res.status(200).json({ deleteEvent });
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: err });

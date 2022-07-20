@@ -26,12 +26,13 @@ model Event {
     name        String
     description String
     users       EventOnUser[]
-    startAt     DateTime
-    endAt       DateTime
+    day         String
+    timeStart   String
+    timeEnd     String
 }
 
 model EventOnUser {
-    event       Event    @relation(fields: [eventId], references: [id])
+    event       Event    @relation(fields: [eventId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     eventId     Int // relation scalar field (used in the `@relation` attribute above)
     user        User @relation(fields: [userId], references: [id])
     userId      String // relation scalar field (used in the `@relation` attribute above)

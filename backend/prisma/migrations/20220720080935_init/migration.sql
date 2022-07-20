@@ -17,8 +17,9 @@ CREATE TABLE `Event` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
-    `startAt` DATETIME(3) NOT NULL,
-    `endAt` DATETIME(3) NOT NULL,
+    `day` VARCHAR(191) NOT NULL,
+    `timeStart` TIME NOT NULL,
+    `timeEnd` TIME NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -37,4 +38,4 @@ CREATE TABLE `EventOnUser` (
 ALTER TABLE `EventOnUser` ADD CONSTRAINT `EventOnUser_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `EventOnUser` ADD CONSTRAINT `EventOnUser_eventId_fkey` FOREIGN KEY (`eventId`) REFERENCES `Event`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `EventOnUser` ADD CONSTRAINT `EventOnUser_eventId_fkey` FOREIGN KEY (`eventId`) REFERENCES `Event`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
