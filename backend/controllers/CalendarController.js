@@ -8,26 +8,24 @@ class CalendarController {
    * @returns {Promise<void>}
    */
   static async create(req, res) {
+    const { day, timeStart, timeEnd, employeeId } = req.body;
     // Je récupère les données envoyées et je vais les pushs en BDD
     try {
       const event = await prisma.event.create({
         // J'assingne les données envoyées
         data: {
-          ...req.body,
-          // Puis je vais faire le lien avec l'utilisateur connecté
-          // Via une relation manyToMany, je vais créer une relation entre event et user
-          users: {
-            create: [
-              {
-                assignedBy: req.user.role,
-                assignedAt: new Date(),
-                user: {
-                  connect: {
-                    id: req.user.id,
-                  },
-                },
-              },
-            ],
+          timeStart,
+          timeEnd,
+          assigned: req.user.role,
+          employee: {
+            connect: {
+              id: employeeId,
+            },
+          },
+          days: {
+            connect: {
+              id: day,
+            },
           },
         },
       });
@@ -53,8 +51,13 @@ class CalendarController {
        * La condition est que dans mes users (depuis event), je vais cherche 1 user dont l'id est id
        */
 
-      if (req.user.role === "ADMIN") {
-        const events = await prisma.event.findMany();
+      if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
+        const events = await prisma.event.findMany({
+          include: {
+            employee: true,
+            days: true,
+          },
+        });
         return res.status(200).json({ events });
       }
       const calendar = await prisma.event.findMany({
@@ -83,7 +86,7 @@ class CalendarController {
    */
   static async get(req, res) {
     try {
-      if (req.user.role === "ADMIN") {
+      if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
         const event = await prisma.event.findUnique({
           where: {
             id: parseInt(req.params.id),
@@ -123,13 +126,48 @@ class CalendarController {
    * @returns {Promise<*>}
    */
   static async update(req, res) {
+    const { day, timeStart, timeEnd, employeeId } = req.body;
+
     try {
-      const updateEvent = await prisma.event.update({
+      if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
+        const updateEvent = await prisma.event.update({
+          where: {
+            id: parseInt(req.params.id),
+          },
+          data: {
+            timeStart,
+            timeEnd,
+            assigned: req.user.role,
+            employee: {
+              connect: {
+                id: employeeId,
+              },
+            },
+            days: {
+              connect: {
+                id: day,
+              },
+            },
+          },
+        });
+        return res.status(200).json({ updateEvent });
+      }
+      const updateEvent = await prisma.event.updateMany({
         where: {
-          id: parseInt(req.params.id),
-        },
-        data: {
-          ...req.body,
+          AND: [
+            {
+              id: parseInt(req.params.id),
+            },
+            {
+              users: {
+                some: {
+                  user: {
+                    id: req.user.id,
+                  },
+                },
+              },
+            },
+          ],
         },
       });
       return res.status(200).json({ updateEvent });
@@ -147,9 +185,30 @@ class CalendarController {
    */
   static async delete(req, res) {
     try {
-      const deleteEvent = await prisma.event.delete({
+      if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
+        const deleteEvent = await prisma.event.delete({
+          where: {
+            id: parseInt(req.params.id),
+          },
+        });
+        return res.status(200).json({ deleteEvent });
+      }
+      const deleteEvent = await prisma.event.deleteMany({
         where: {
-          id: parseInt(req.params.id),
+          AND: [
+            {
+              id: parseInt(req.params.id),
+            },
+            {
+              users: {
+                some: {
+                  user: {
+                    id: req.user.id,
+                  },
+                },
+              },
+            },
+          ],
         },
       });
       return res.status(200).json({ deleteEvent });

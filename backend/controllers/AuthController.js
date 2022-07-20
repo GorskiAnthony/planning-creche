@@ -9,9 +9,10 @@ class AuthController {
   static async register(req, res) {
     try {
       // Je vérifie que les données envoyées sont valides
-      const { name, email, password, repeat_password } = req.body;
+      const { firstname, lastname, email, password, repeat_password } =
+        req.body;
       const { error } = RegisterSchema.validate(
-        { name, email, password, repeat_password },
+        { firstname, lastname, email, password, repeat_password },
         { abortEarly: false }
       );
       // Si une erreur est survenue, je renvoie le message d'erreur
@@ -22,7 +23,8 @@ class AuthController {
         const hash = await bcrypt.hash(password, 10);
         await prisma.user.create({
           data: {
-            fullname: name,
+            firstname,
+            lastname,
             email,
             password: hash,
           },
@@ -67,7 +69,15 @@ class AuthController {
           res
             .cookie("user_session", token)
             .status(200)
-            .json({ message: "User logged in", token });
+            .json({
+              message: "User logged in",
+              user: {
+                id: user.id,
+                name: user.fullname,
+                email: user.email,
+                role: user.role,
+              },
+            });
         }
       }
     } catch (err) {

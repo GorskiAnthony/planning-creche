@@ -1,7 +1,8 @@
 const Joi = require("joi");
 
 module.exports = Joi.object({
-  name: Joi.string().required(),
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().pattern(
     new RegExp(

@@ -3,6 +3,7 @@ const userMiddleware = require("../middleware/userMiddleware");
 
 const AuthController = require("../controllers/AuthController");
 const CalendarController = require("../controllers/CalendarController");
+const DayController = require("../controllers/DayController");
 
 /**
  * @api {post} /auth/login Login user
@@ -24,5 +25,14 @@ router.get("/calendars/:id", userMiddleware, CalendarController.get);
 router.get("/calendars", userMiddleware, CalendarController.getAll);
 router.put("/calendars/:id", userMiddleware, CalendarController.update);
 router.delete("/calendars/:id", userMiddleware, CalendarController.delete);
+
+/**
+ * @api {post} /days/days Create new day
+ * @api {get} /days/:id Get day by id
+ * @api {update} /days/:id Update day
+ */
+router.post("/days", userMiddleware, CalendarController.create);
+router.get("/days/:id", userMiddleware, CalendarController.get);
+router.put("/days/:id", userMiddleware, CalendarController.update);
 
 module.exports = router;
