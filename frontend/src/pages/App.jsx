@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Home.jsx";
 import Login from "./Login.jsx";
 import Calendar from "./Calendar.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -12,6 +14,16 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/calendar" element={<Calendar />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

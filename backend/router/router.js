@@ -4,6 +4,7 @@ const userMiddleware = require("../middleware/userMiddleware");
 const AuthController = require("../controllers/AuthController");
 const CalendarController = require("../controllers/CalendarController");
 const DayController = require("../controllers/DayController");
+const UserController = require("../controllers/UserController");
 
 /**
  * @api {post} /auth/login Login user
@@ -31,8 +32,15 @@ router.delete("/calendars/:id", userMiddleware, CalendarController.delete);
  * @api {get} /days/:id Get day by id
  * @api {update} /days/:id Update day
  */
-router.post("/days", userMiddleware, CalendarController.create);
-router.get("/days/:id", userMiddleware, CalendarController.get);
-router.put("/days/:id", userMiddleware, CalendarController.update);
+router.post("/days", userMiddleware, DayController.create);
+router.get("/days/:id", userMiddleware, DayController.get);
+router.put("/days/:id", userMiddleware, DayController.update);
+
+/**
+ * @api {getAll} /users Get all users
+ * @api {get} /users/:id Get user by id
+ */
+router.get("/users", userMiddleware, UserController.getAll);
+router.get("/users/:id", userMiddleware, UserController.get);
 
 module.exports = router;

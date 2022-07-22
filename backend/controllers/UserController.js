@@ -10,7 +10,7 @@ class UserController {
     }
   }
 
-  static async getOne(req, res) {
+  static async get(req, res) {
     try {
       const user = await prisma.user.findUnique({
         where: {

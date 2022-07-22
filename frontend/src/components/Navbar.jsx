@@ -3,17 +3,23 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Avatar from "boring-avatars";
 import { Link } from "react-router-dom";
-import { clearSession, clear } from "../services/stockage.js";
+import { clearSession, clear, setSessionItem } from "../services/stockage.js";
+import { useNavigate } from "react-router-dom";
+import { info } from "../services/toast";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = ({ isAuth }) => {
+const Navbar = ({ isAuth, admin }) => {
+  console.log(admin);
+
+  const navigate = useNavigate();
   const handleLogout = () => {
     clearSession();
     clear();
-    window.location.href = "/";
+    info("🚪 Au revoir !");
+    navigate("/");
   };
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -65,7 +71,7 @@ const Navbar = ({ isAuth }) => {
                         <span className="sr-only">Open user menu</span>
                         <Avatar
                           size={40}
-                          name="Belva Lockwood"
+                          name="Maya Angelou"
                           variant="beam"
                           colors={[
                             "#92A1C6",
@@ -100,6 +106,22 @@ const Navbar = ({ isAuth }) => {
                             </Link>
                           )}
                         </Menu.Item>
+                        {admin.role === "ADMIN" ||
+                        admin.role === "SUPER_ADMIN" ? (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                to="#"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Admin
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        ) : null}
                         <Menu.Item>
                           {({ active }) => (
                             <a

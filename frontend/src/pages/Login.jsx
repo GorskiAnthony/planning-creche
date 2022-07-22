@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import api from "../services/api";
-import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
 import { setSessionItem, setItem } from "../services/stockage.js";
+import { success, warning } from "../services/toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -11,21 +11,30 @@ const Login = () => {
     rememberMe: false,
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const response = await api.post("/auth/login", user);
-    if (response.status === 200) {
-      if (user.rememberMe) {
-        setItem("user", response.data.user);
-      } else {
-        setSessionItem("user", response.data.user);
-      }
-      window.location.href = "/";
-    }
+    api
+      .post("/auth/login", user)
+      .then((response) => {
+        if (response.status === 200) {
+          if (user.rememberMe) {
+            setItem("user", response.data.user);
+          } else {
+            setSessionItem("user", response.data.user);
+          }
+          success(`😎 Connexion réussie, bienvenue !`);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        warning(`🧐 ${err.response.data.error}`);
+      });
   };
 
   return (
@@ -34,9 +43,6 @@ const Login = () => {
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <Link to="/">
-                <ArrowLeftIcon className="h-6 w-6 text-indigo-500" />
-              </Link>
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
                 Page de connexion
               </h2>

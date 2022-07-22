@@ -66,6 +66,7 @@ class AuthController {
             { id: user.id, role: user.role, email: user.email },
             process.env.JWT_SECRET
           );
+          res.cookie("user_logged", true);
           res
             .cookie("user_session", token)
             .status(200)

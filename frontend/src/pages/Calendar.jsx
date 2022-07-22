@@ -5,39 +5,45 @@ import CalendarDay from "../components/CalendarDay.jsx";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
-  const [sortBy, setSortBy] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       const response = await api.get("/calendars");
-      setEvents(response.data.events);
+      const size = response.data.calendar.length;
+      if (size === 0) {
+        setEvents([]);
+        setLoading(false);
+      } else {
+        for (let i = 0; i < 5; i++) {
+          const weekday = [];
+          // add user dayId into array
+          for (let j = 0; j < size; j++) {
+            if (response.data.calendar[j].dayId === i + 1) {
+              weekday.push(response.data.calendar[j]);
+            }
+          }
+          setEvents((prevEvents) => [...prevEvents, weekday]);
+        }
+      }
       setLoading(false);
     }
     fetchData();
   }, []);
 
-  events.sort((a, b) => {
-    return a.dayId - b.dayId;
-  });
+  console.log(events);
 
   return (
     <Layout>
-      <h1>Calendar</h1>
-      <div className="grid grid-cols-5">
+      <h1 className="text-2xl mb-3">Calendrier</h1>
+      <div className="grid grid-cols-1 md:grid-cols-5">
         {loading ? (
           <div>Loading...</div>
+        ) : events.length === 0 ? (
+          <div>Aucun événement</div>
         ) : (
-          events.map((event) => {
-            return (
-              <CalendarDay
-                key={event.id}
-                name={`${event.employee.firstname} - ${event.employee.lastname}`}
-                weekDay={event.days.name}
-                timeStart={event.timeStart}
-                timeEnd={event.timeEnd}
-              />
-            );
+          events.map((event, id) => {
+            return <CalendarDay key={id} events={event} />;
           })
         )}
       </div>

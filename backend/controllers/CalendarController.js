@@ -52,28 +52,27 @@ class CalendarController {
        */
 
       if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
-        const events = await prisma.event.findMany({
+        const calendar = await prisma.event.findMany({
           include: {
             employee: true,
             days: true,
           },
         });
-        return res.status(200).json({ events });
+        return res.status(200).json({ calendar });
       }
       const calendar = await prisma.event.findMany({
         where: {
-          users: {
-            some: {
-              user: {
-                id: req.user.id,
-              },
-            },
-          },
+          employeeId: req.user.id,
+        },
+        include: {
+          employee: true,
+          days: true,
         },
       });
 
       res.status(200).json({ calendar });
     } catch (err) {
+      console.log(err);
       res.status(400).json({ error: err });
     }
   }
