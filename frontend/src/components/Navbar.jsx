@@ -1,25 +1,33 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Avatar from "boring-avatars";
 import { Link } from "react-router-dom";
-import { clearSession, clear, setSessionItem } from "../services/stockage.js";
+import { clearSession, clear } from "../services/stockage.js";
 import { useNavigate } from "react-router-dom";
 import { info } from "../services/toast";
+import api from "../services/api";
+import AuthContext from "../context/AuthContextProvider";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = ({ isAuth, admin }) => {
-  console.log(admin);
-
+  const { setIsLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogout = () => {
-    clearSession();
-    clear();
-    info("🚪 Au revoir !");
-    navigate("/");
+    api
+      .delete("/auth/logout")
+      .then(() => {
+        clearSession();
+        clear();
+        setIsLogin(false);
+        navigate("/login");
+      })
+      .catch((err) => {
+        info(err.message);
+      });
   };
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -111,7 +119,7 @@ const Navbar = ({ isAuth, admin }) => {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                to="#"
+                                to="/admin"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"

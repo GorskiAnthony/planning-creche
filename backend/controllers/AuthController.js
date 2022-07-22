@@ -63,10 +63,14 @@ class AuthController {
           return res.status(400).json({ error: "Password is incorrect" });
         } else {
           const token = jwt.sign(
-            { id: user.id, role: user.role, email: user.email },
+            {
+              id: user.id,
+              role: user.role,
+              email: user.email,
+              name: `${user.firstname} ${user.lastname}`,
+            },
             process.env.JWT_SECRET
           );
-          res.cookie("user_logged", true);
           res
             .cookie("user_session", token)
             .status(200)
@@ -74,9 +78,8 @@ class AuthController {
               message: "User logged in",
               user: {
                 id: user.id,
-                name: user.fullname,
+                name: `${user.firstname} ${user.lastname}`,
                 email: user.email,
-                role: user.role,
               },
             });
         }

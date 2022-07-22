@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import api from "../services/api";
 import { setSessionItem, setItem } from "../services/stockage.js";
 import { success, warning } from "../services/toast";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContextProvider.jsx";
 
 const Login = () => {
+  const { setIsLogin } = useContext(AuthContext);
+
   const [user, setUser] = useState({
     email: "admin@test.fr",
     password: "Azerty.123",
@@ -29,6 +32,7 @@ const Login = () => {
             setSessionItem("user", response.data.user);
           }
           success(`😎 Connexion réussie, bienvenue !`);
+          setIsLogin(true);
           navigate("/");
         }
       })

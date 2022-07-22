@@ -26,6 +26,7 @@ model Event {
     id          Int @id @default(autoincrement())
     timeStart   String
     timeEnd     String
+    isWork      Boolean
     employee    User @relation(fields: [employeeId] , references: [id])
     employeeId  String
     days        Day @relation(fields: [dayId] , references: [id])
