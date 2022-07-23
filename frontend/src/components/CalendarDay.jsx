@@ -1,18 +1,7 @@
 import React from "react";
+import { getSpanGridRow, getSpanGridStart } from "../services/gridSpan";
 
 const CalendarDay = ({ events }) => {
-  const colors = ["cyan", "teal", "green", "orange", "red", "purple", "pink"];
-  const getSpanGridRow = (event) => {
-    const start = parseInt(event.timeStart.split(":")[0]);
-    const end = parseInt(event.timeEnd.split(":")[0]);
-    return end - start;
-  };
-
-  const getSpanGridStart = (event) => {
-    const start = parseInt(event.timeStart.split(":")[0]);
-    return start - 6;
-  };
-
   return (
     <div>
       <h1 className={`text-center bg-gray-700 text-white text-xl p-3`}>

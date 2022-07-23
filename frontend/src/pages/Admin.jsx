@@ -5,7 +5,7 @@ const Admin = () => {
   return (
     <Layout>
       <h1>Admin</h1>
-      <p>s</p>
+      <p>Interface admin</p>
     </Layout>
   );
 };

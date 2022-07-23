@@ -126,6 +126,15 @@ const Profil = () => {
           Envoyer
         </button>
       </div>
+
+      <div>
+        Votre nom complet et votre adresse email sont confidentiels et ne seront
+        donc pas divulgués.
+        <p>
+          Si une erreur est détectée, n'hésitez pas à contacter votre
+          responsable pour qu'il puisse corriger l'erreur.
+        </p>
+      </div>
     </Layout>
   );
 };

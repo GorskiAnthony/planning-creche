@@ -7,14 +7,13 @@ import AuthContext from "../context/AuthContextProvider.jsx";
 
 const Login = () => {
   const { setIsLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     email: "admin@test.fr",
     password: "Azerty.123",
     rememberMe: false,
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
