@@ -1,6 +1,7 @@
 import React from "react";
 
 const CalendarDay = ({ events }) => {
+  const colors = ["cyan", "teal", "green", "orange", "red", "purple", "pink"];
   const getSpanGridRow = (event) => {
     const start = parseInt(event.timeStart.split(":")[0]);
     const end = parseInt(event.timeEnd.split(":")[0]);
@@ -14,11 +15,11 @@ const CalendarDay = ({ events }) => {
 
   return (
     <div>
-      <h1 className={`text-center bg-indigo-100 text-indigo-700 text-xl p-3`}>
+      <h1 className={`text-center bg-gray-700 text-white text-xl p-3`}>
         {events[0].days.name}
       </h1>
       <div
-        className={`border border-2 border-gray-50 h-full grid grid-cols-${events.length} gap-1`}
+        className={`border border-2 border-indigo-100 h-full grid grid-cols-${events.length} gap-1`}
         style={{ gridTemplateRows: "repeat(11, minmax(50px, 15px))" }}
       >
         {events.map((event) => {
@@ -33,12 +34,14 @@ const CalendarDay = ({ events }) => {
               }}
               key={event.id}
             >
-              <p className="text-xs text-indigo-900">
-                {event.employee.firstname}
-              </p>
-              <p className="text-xs text-indigo-900">
-                {event.timeStart} - {event.timeEnd}
-              </p>
+              <div className="bg-indigo-600 py-3">
+                <p className="text-xs text-white text-center">
+                  👩‍🍼 {event.employee.firstname}
+                </p>
+                <p className="text-xs text-white text-center">
+                  ⏱ {event.timeStart} - {event.timeEnd}
+                </p>
+              </div>
             </div>
           );
         })}

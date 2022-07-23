@@ -6,24 +6,26 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContextProvider.jsx";
 
 const Layout = ({ children }) => {
-  const { admin } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const user = getSessionItem("user") || getItem("user");
+  const userStorage = getSessionItem("user") || getItem("user");
 
   useEffect(() => {
-    if (!user) {
+    if (!userStorage) {
       navigate("/login");
     }
-  }, [user]);
+  }, [userStorage]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar isAuth={user === null ? false : true} admin={admin} />
-      <div className="max-w-7xl mt-8 px-4 sm:px-6 lg:px-8 flex-1">
-        <div className="max-w-5xl mx-auto">{children}</div>
-      </div>
+    <>
+      <Navbar isAuth={userStorage === null ? false : true} user={user} />
+      <main className="min-h-screen flex flex-col">
+        <div className="mt-8 px-4 sm:px-6 lg:px-8 flex-1">
+          <div className="max-w-5xl mx-auto">{children}</div>
+        </div>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

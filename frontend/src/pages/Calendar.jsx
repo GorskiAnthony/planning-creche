@@ -31,8 +31,6 @@ const Calendar = () => {
     fetchData();
   }, []);
 
-  console.log(events);
-
   return (
     <Layout>
       <h1 className="text-2xl mb-3">Calendrier</h1>
@@ -43,6 +41,9 @@ const Calendar = () => {
           <div>Aucun événement</div>
         ) : (
           events.map((event, id) => {
+            if (event.length === 0) {
+              return null;
+            }
             return <CalendarDay key={id} events={event} />;
           })
         )}

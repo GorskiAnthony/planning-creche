@@ -11,7 +11,7 @@ const navigation = [
   },
   {
     name: "GitHub",
-    href: "https://github.com/GorskiAnthony",
+    href: "https://github.com/GorskiAnthony/planning-creche",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path

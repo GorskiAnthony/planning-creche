@@ -31,7 +31,7 @@ const Login = () => {
           } else {
             setSessionItem("user", response.data.user);
           }
-          success(`😎 Connexion réussie, bienvenue !`);
+          success(`👋 Bonjour ${response.data.user.name} !`);
           setIsLogin(true);
           navigate("/");
         }
