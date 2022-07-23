@@ -2,12 +2,11 @@ import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Avatar from "boring-avatars";
-import { Link } from "react-router-dom";
-import { clearSession, clear } from "../services/stockage.js";
-import { useNavigate } from "react-router-dom";
-import { info } from "../services/toast";
-import api from "../services/api";
-import AuthContext from "../context/AuthContextProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { clearSession, clear } from "@services/stockage.js";
+import { info } from "@services/toast";
+import api from "@services/api";
+import AuthContext from "@context/AuthContextProvider";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

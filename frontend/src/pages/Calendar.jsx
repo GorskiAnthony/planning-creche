@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../layout/Layout.jsx";
-import api from "../services/api";
-import CalendarDay from "../components/CalendarDay.jsx";
+import Layout from "@/layout/Layout.jsx";
+import api from "@services/api";
+import CalendarDay from "@components/CalendarDay.jsx";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);

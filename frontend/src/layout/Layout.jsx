@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from "react";
-import Navbar from "../components/Navbar.jsx";
-import { getItem, getSessionItem } from "../services/stockage.js";
-import Footer from "../components/Footer.jsx";
+import Navbar from "@components/Navbar.jsx";
+import { getItem, getSessionItem } from "@services/stockage.js";
+import Footer from "@components/Footer.jsx";
+import AuthContext from "@context/AuthContextProvider.jsx";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContextProvider.jsx";
 
 const Layout = ({ children }) => {
   const { user } = useContext(AuthContext);

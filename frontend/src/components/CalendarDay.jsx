@@ -1,14 +1,16 @@
 import React from "react";
-import { getSpanGridRow, getSpanGridStart } from "../services/gridSpan";
+import { getSpanGridRow, getSpanGridStart } from "@services/gridSpan";
 
 const CalendarDay = ({ events }) => {
   return (
-    <div>
-      <h1 className={`text-center bg-gray-700 text-white text-xl p-3`}>
+    <div className="mr-0.5">
+      <h1 className="text-center bg-gray-700 text-white text-xl p-3">
         {events[0].days.name}
       </h1>
       <div
-        className={`border border-2 border-indigo-100 h-full grid grid-cols-${events.length} gap-1`}
+        className={`border border-2 border-indigo-100 h-full grid grid-cols-${
+          events.length - 1
+        } gap-1`}
         style={{ gridTemplateRows: "repeat(11, minmax(50px, 15px))" }}
       >
         {events.map((event) => {

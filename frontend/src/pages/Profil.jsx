@@ -1,10 +1,38 @@
 import React, { useContext, useState } from "react";
-import Layout from "../layout/Layout.jsx";
-import AuthContext from "../context/AuthContextProvider.jsx";
+import Layout from "@/layout/Layout.jsx";
+import AuthContext from "@context/AuthContextProvider.jsx";
+import api from "@services/api";
+import { success, error } from "@services/toast.js";
 
 const Profil = () => {
   const { user } = useContext(AuthContext);
-  const [password, setPassword] = useState("");
+  const [allPassword, setAllPassword] = useState({
+    old_password: "",
+    password: "",
+    repeat_password: "",
+  });
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setAllPassword({ ...allPassword, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    api
+      .put("/users", allPassword)
+      .then((response) => {
+        success(`🔐 ${response.data.message}`);
+        setAllPassword({
+          old_password: "",
+          password: "",
+          repeat_password: "",
+        });
+      })
+      .catch((err) => {
+        error(`😭 ${err.response.data.error}`);
+      });
+  };
 
   console.log(user);
   return (
@@ -20,7 +48,7 @@ const Profil = () => {
             </h3>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST" id="formUpdate">
+            <form onSubmit={handleSubmit} id="formUpdate">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-12 sm:col-span-6">
                   <label
@@ -59,15 +87,17 @@ const Profil = () => {
 
                 <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                   <label
-                    htmlFor="oldPassword"
+                    htmlFor="old_password"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Ancien mot de passe
                   </label>
                   <input
                     type="password"
-                    name="oldPassword"
-                    id="oldPassword"
+                    name="old_password"
+                    id="old_password"
+                    value={allPassword.old_password}
+                    onChange={handleChange}
                     autoComplete="oldPassword"
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
@@ -84,6 +114,8 @@ const Profil = () => {
                     type="password"
                     name="password"
                     id="password"
+                    value={allPassword.password}
+                    onChange={handleChange}
                     autoComplete="password"
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
@@ -91,15 +123,17 @@ const Profil = () => {
 
                 <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                   <label
-                    htmlFor="newPassword"
+                    htmlFor="repeat_password"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Confirmation mot de passe
                   </label>
                   <input
                     type="password"
-                    name="newPassword"
-                    id="newPassword"
+                    name="repeat_password"
+                    id="repeat_password"
+                    value={allPassword.repeat_password}
+                    onChange={handleChange}
                     autoComplete="newPassword"
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
@@ -127,9 +161,23 @@ const Profil = () => {
         </button>
       </div>
 
-      <div>
-        Votre nom complet et votre adresse email sont confidentiels et ne seront
-        donc pas divulgués.
+      <div className="mt-5">
+        <p className="my-2">
+          Si vous souhaitez changer votre mot de passe, vous devez respecter les
+          conditions ci-dessous.
+          <ul className="list-disc list-inside">
+            <li>Le mot de passe est composé d'au moins 8 caractères.</li>
+            <li>
+              Il doit être composé de chiffres, lettres, caractères spéciaux.
+            </li>
+          </ul>
+        </p>
+        <p>
+          Votre <span className="font-bold">Nom Complet</span> et votre
+          <span className="font-bold"> Adresse Email</span> ne sont pas
+          modifiable, nous avons fait ça pour éviter toutes modifications
+          accidentelles.
+        </p>
         <p>
           Si une erreur est détectée, n'hésitez pas à contacter votre
           responsable pour qu'il puisse corriger l'erreur.

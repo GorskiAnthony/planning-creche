@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import api from "../services/api";
-import { setSessionItem, setItem } from "../services/stockage.js";
-import { success, warning } from "../services/toast";
+import api from "@services/api";
+import { setSessionItem, setItem } from "@services/stockage.js";
+import { success, warning } from "@services/toast";
+import AuthContext from "@context/AuthContextProvider.jsx";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContextProvider.jsx";
 
 const Login = () => {
   const { setIsLogin } = useContext(AuthContext);
