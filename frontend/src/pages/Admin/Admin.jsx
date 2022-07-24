@@ -2,19 +2,20 @@ import React, { useContext, useState, useEffect } from "react";
 import Layout from "@/layout/Layout.jsx";
 import AuthContext from "@/context/AuthContextProvider.jsx";
 import api from "@services/api.js";
-import AdminListUsers from "@components/AdminListUsers.jsx";
+import AdminListUsers from "@components/Admin/AdminListUsers.jsx";
+import AdminListCalendars from "@components/Admin/AdminListCalendars.jsx";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
+  const [calendars, setCalendars] = useState([]);
   useEffect(() => {
-    api
-      .get("/users")
-      .then((res) => {
-        setUsers(res.data.users);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Promise.all([api.get("/users"), api.get("/calendars")]).then(
+      ([users, calendars]) => {
+        console.log({ users, calendars });
+        setUsers(users.data.users);
+        setCalendars(calendars.data.calendars);
+      }
+    );
   }, []);
 
   const { user } = useContext(AuthContext);
@@ -30,6 +31,7 @@ const Admin = () => {
       </header>
       <section>
         <AdminListUsers users={users} />
+        <AdminListCalendars calendars={calendars} />
       </section>
     </Layout>
   );

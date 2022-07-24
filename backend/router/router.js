@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const userMiddleware = require("../middleware/userMiddleware");
+const superAdminMiddleware = require("../middleware/userMiddleware");
 
 const AuthController = require("../controllers/AuthController");
 const CalendarController = require("../controllers/CalendarController");
@@ -29,12 +30,20 @@ router.delete("/calendars/:id", userMiddleware, CalendarController.delete);
 
 /**
  * @api {post} /days/days Create new day
- * @api {get} /days/:id Get day by id
  * @api {update} /days/:id Update day
  */
-router.post("/days", userMiddleware, DayController.create);
-router.get("/days/:id", userMiddleware, DayController.get);
-router.put("/days/:id", userMiddleware, DayController.update);
+router.post(
+  "/days",
+  userMiddleware,
+  superAdminMiddleware,
+  DayController.create
+);
+router.put(
+  "/days/:id",
+  userMiddleware,
+  superAdminMiddleware,
+  DayController.update
+);
 
 /**
  * @api {getAll} /users Get all users

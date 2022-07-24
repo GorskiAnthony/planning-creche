@@ -44,7 +44,10 @@ const AdminAdd = () => {
       <div className="mt-10">
         <div className="my-10">
           Vous allez insérer un employé, ne pas oublié de transmettre le mot de
-          passe à l'utilisateur, et lui demander de modifier ce mot de passe
+          passe à l'utilisateur, et lui demander de modifier ce mot de passe en
+          cliquant sur
+          <span className="font-bold">" Mot de passe oublié?"</span> sur la page
+          de login.
         </div>
         <div className="mt-10 sm:mt-0">
           <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -165,7 +168,7 @@ const AdminAdd = () => {
         <div className="mt-5">
           <div className="my-2">
             Pour la création du mot de passe voilà comment ça se passera :
-            <ul className="list-disc list-inside">
+            <ul className="marker:text-sky-400 list-disc list-inside">
               <li>
                 Le mot de passe doit être composé d'au moins 8 caractères.
               </li>

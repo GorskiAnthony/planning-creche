@@ -10,7 +10,7 @@ const Calendar = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await api.get("/calendars");
-      const size = response.data.calendar.length;
+      const size = response.data.calendars.length;
       if (size === 0) {
         setEvents([]);
         setLoading(false);
@@ -19,8 +19,8 @@ const Calendar = () => {
           const weekday = [];
           // add user dayId into array
           for (let j = 0; j < size; j++) {
-            if (response.data.calendar[j].dayId === i + 1) {
-              weekday.push(response.data.calendar[j]);
+            if (response.data.calendars[j].dayId === i + 1) {
+              weekday.push(response.data.calendars[j]);
             }
           }
           setEvents((prevEvents) => [...prevEvents, weekday]);
