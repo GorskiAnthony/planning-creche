@@ -10,9 +10,14 @@ import { success } from "@services/toast.js";
 const AdminEdit = () => {
   const { id } = useParams();
   const [modal, setModal] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
+
+  const [currentUser, setCurrentUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+  });
 
   const toggleModal = () => {
     setModal((modal) => !modal);
@@ -104,7 +109,6 @@ const AdminEdit = () => {
                           id="firstname"
                           value={currentUser.firstname}
                           onChange={handleChange}
-                          autoComplete="given-name"
                           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         />
                       </div>
@@ -122,7 +126,6 @@ const AdminEdit = () => {
                           id="lastname"
                           value={currentUser.lastname}
                           onChange={handleChange}
-                          autoComplete="family-name"
                           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         />
                       </div>
@@ -140,7 +143,6 @@ const AdminEdit = () => {
                           id="email"
                           value={currentUser.email}
                           onChange={handleChange}
-                          autoComplete="email"
                           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         />
                       </div>

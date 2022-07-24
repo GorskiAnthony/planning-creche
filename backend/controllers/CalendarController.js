@@ -8,7 +8,7 @@ class CalendarController {
    * @returns {Promise<void>}
    */
   static async create(req, res) {
-    const { day, timeStart, timeEnd, employeeId, isWork } = req.body;
+    const { day, timeStart, timeEnd, employeeId } = req.body;
     // Je récupère les données envoyées et je vais les pushs en BDD
     try {
       const event = await prisma.event.create({
@@ -27,7 +27,6 @@ class CalendarController {
               id: day,
             },
           },
-          isWork,
         },
       });
       res.status(200).json({ event });

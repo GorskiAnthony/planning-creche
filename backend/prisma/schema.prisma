@@ -12,11 +12,12 @@ datasource db {
 
 model User {
     id          String @id @default(cuid())
-    firstname    String
+    firstname   String
     lastname    String
     email       String @unique
     password    String
     role        Role @default(USER)
+    forgot_pwd  String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now())
     events      Event[]
@@ -26,7 +27,6 @@ model Event {
     id          Int @id @default(autoincrement())
     timeStart   String
     timeEnd     String
-    isWork      Boolean @default(false)
     employee    User @relation(fields: [employeeId] , references: [id])
     employeeId  String
     days        Day @relation(fields: [dayId] , references: [id])
