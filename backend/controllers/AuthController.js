@@ -17,7 +17,7 @@ class AuthController {
       );
       // Si une erreur est survenue, je renvoie le message d'erreur
       if (error) {
-        return res.status(422).json({ error: "Oups, il y a eu une erreur" });
+        return res.status(422).json({ error: "Une erreur lors de la saisie" });
       } else {
         // Sinon, si tout va bien, je hash le mot de passe et save le user
         const hash = await bcrypt.hash(password, 10);
@@ -32,7 +32,10 @@ class AuthController {
         res.status(200).json({ message: "Youhou ! Nouvel utilisateur" });
       }
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      res.status(400).json({
+        error:
+          "Oups, il y a eu une erreur quelque part, l'email n'est pas déjà utilisé ?",
+      });
     }
   }
 

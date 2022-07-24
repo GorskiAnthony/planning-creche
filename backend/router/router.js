@@ -38,11 +38,15 @@ router.put("/days/:id", userMiddleware, DayController.update);
 
 /**
  * @api {getAll} /users Get all users
- * @api {put} /users Update user
+ * @api {put} /users Update Password user
  * @api {get} /users/:id Get user by id
+ * @api {put} /users/:id Update user by id
+ * @api {delete} /users/:id Delete user by id
  */
 router.get("/users", userMiddleware, UserController.getAll);
 router.put("/users", userMiddleware, UserController.changePassword);
 router.get("/users/:id", userMiddleware, UserController.get);
+router.put("/users/:id", userMiddleware, UserController.update);
+router.delete("/users/:id", userMiddleware, UserController.delete);
 
 module.exports = router;

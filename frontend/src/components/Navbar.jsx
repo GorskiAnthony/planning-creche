@@ -13,7 +13,7 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ isAuth, user }) => {
-  const { setIsLogin } = useContext(AuthContext);
+  const { setIsLogin, avatar } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogout = () => {
     api
@@ -49,18 +49,18 @@ const Navbar = ({ isAuth, user }) => {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
                     Accueil
-                  </a>
-                  <a
-                    href="/calendar"
+                  </Link>
+                  <Link
+                    to="/calendar"
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
                     Calendrier
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -79,7 +79,7 @@ const Navbar = ({ isAuth, user }) => {
                         <span className="sr-only">Open user menu</span>
                         <Avatar
                           size={40}
-                          name="Maya Angelou"
+                          name={avatar}
                           variant="beam"
                           colors={[
                             "#92A1C6",

@@ -34,7 +34,6 @@ const Profil = () => {
       });
   };
 
-  console.log(user);
   return (
     <Layout>
       <h1 className="text-lg font-medium leading-6 text-gray-900 mb-5">
@@ -162,7 +161,7 @@ const Profil = () => {
       </div>
 
       <div className="mt-5">
-        <p className="my-2">
+        <div className="my-2">
           Si vous souhaitez changer votre mot de passe, vous devez respecter les
           conditions ci-dessous.
           <ul className="list-disc list-inside">
@@ -171,7 +170,7 @@ const Profil = () => {
               Il doit être composé de chiffres, lettres, caractères spéciaux.
             </li>
           </ul>
-        </p>
+        </div>
         <p>
           Votre <span className="font-bold">Nom Complet</span> et votre
           <span className="font-bold"> Adresse Email</span> ne sont pas

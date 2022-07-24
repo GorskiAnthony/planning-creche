@@ -5,6 +5,16 @@ import jwt_decode from "jwt-decode";
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
+  const avatars = [
+    "Lucy Stone",
+    "Jane Johnston",
+    "Rebecca Crumpler",
+    "Elizabeth Cady",
+    "Eunice Kennedy",
+    "Amelia Earhart",
+    "Maya Angelou",
+  ];
+  const [avatar, setAvatar] = useState("");
   const [user, setUser] = useState({});
   const [isLogin, setIsLogin] = useState(false);
 
@@ -13,6 +23,7 @@ export const AuthContextProvider = ({ children }) => {
     if (token) {
       const decoded = jwt_decode(token);
       setUser(decoded);
+      setAvatar(avatars[Math.floor(Math.random() * avatars.length)]);
       setIsLogin(false);
     }
   }, [isLogin]);
@@ -21,6 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        avatar,
         setUser,
         setIsLogin,
       }}

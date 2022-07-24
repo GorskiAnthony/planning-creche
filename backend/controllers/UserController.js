@@ -22,7 +22,7 @@ class UserController {
     try {
       const user = await prisma.user.findUnique({
         where: {
-          id: req.user.id,
+          id: req.params.id,
         },
       });
       return res.status(200).json({ user });
@@ -71,6 +71,39 @@ class UserController {
             .json({ message: "Le mot de passe est bien changé" });
         }
       }
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      await prisma.user.update({
+        where: {
+          id: req.params.id,
+        },
+        data: {
+          ...req.body,
+        },
+      });
+      return res
+        .status(200)
+        .json({ message: "L'utilisateur est bien modifié" });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      await prisma.user.delete({
+        where: {
+          id: req.params.id,
+        },
+      });
+      return res
+        .status(200)
+        .json({ message: "L'utilisateur est bien supprimé" });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
