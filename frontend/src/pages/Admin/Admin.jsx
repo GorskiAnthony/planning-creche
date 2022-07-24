@@ -11,7 +11,6 @@ const Admin = () => {
   useEffect(() => {
     Promise.all([api.get("/users"), api.get("/calendars")]).then(
       ([users, calendars]) => {
-        console.log({ users, calendars });
         setUsers(users.data.users);
         setCalendars(calendars.data.calendars);
       }

@@ -8,9 +8,11 @@ import Profil from "./Profil.jsx";
 import Admin from "./Admin/Admin.jsx";
 import AdminEdit from "./Admin/AdminEdit.jsx";
 import AdminAdd from "./Admin/AdminAdd.jsx";
+import AdminEditCalendar from "@pages/Admin/AdminEditCalendar.jsx";
 import ProtectedRoute from "@/layout/ProtectedRoute.jsx";
 import AuthContext from "@context/AuthContextProvider.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import AdminAddCalendar from "@pages/Admin/AdminAddCalendar.jsx";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -38,10 +40,26 @@ const App = () => {
           }
         />
         <Route
-          path="/admin/add"
+          path="/admin/users/add"
           element={
             <ProtectedRoute user={user}>
               <AdminAdd />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/calendars/:id"
+          element={
+            <ProtectedRoute user={user}>
+              <AdminEditCalendar />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/calendars/add"
+          element={
+            <ProtectedRoute user={user}>
+              <AdminAddCalendar />
             </ProtectedRoute>
           }
         />

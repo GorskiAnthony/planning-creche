@@ -11,7 +11,7 @@ const CalendarDay = ({ events }) => {
         className={`border border-2 border-indigo-100 h-full grid grid-cols-${
           events.length - 1
         } gap-1`}
-        style={{ gridTemplateRows: "repeat(11, minmax(50px, 15px))" }}
+        style={{ gridTemplateRows: "repeat(11, minmax(30px, 15px))" }}
       >
         {events.map((event) => {
           return (

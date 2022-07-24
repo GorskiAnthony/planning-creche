@@ -95,18 +95,10 @@ class CalendarController {
       }
       const event = await prisma.event.findMany({
         where: {
+          employeeId: req.user.id,
           AND: [
             {
               id: parseInt(req.params.id),
-            },
-            {
-              users: {
-                some: {
-                  user: {
-                    id: req.user.id,
-                  },
-                },
-              },
             },
           ],
         },

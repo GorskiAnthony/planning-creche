@@ -52,7 +52,7 @@ const Modal = ({ isOpen, toggleModal, handleDelete }) => {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Êtes-vous sûr de vouloir supprimer le compte ? Toutes
+                        Êtes-vous sûr de vouloir supprimer cet élément ? Toutes
                         les données seront définitivement supprimées de nos
                         serveurs pour toujours. Cette action ne peut être
                         annulée.

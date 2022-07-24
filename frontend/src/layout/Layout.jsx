@@ -17,15 +17,13 @@ const Layout = ({ children }) => {
   }, [userStorage]);
 
   return (
-    <>
+    <main className="min-h-screen flex flex-col">
       <Navbar isAuth={userStorage === null ? false : true} user={user} />
-      <main className="min-h-screen flex flex-col">
-        <div className="mt-8 px-4 sm:px-6 lg:px-8 flex-1">
-          <div className="max-w-5xl mx-auto">{children}</div>
-        </div>
-      </main>
+      <div className="mt-8 px-4 sm:px-6 lg:px-8 flex-1">
+        <div className="max-w-5xl mx-auto">{children}</div>
+      </div>
       <Footer />
-    </>
+    </main>
   );
 };
 
