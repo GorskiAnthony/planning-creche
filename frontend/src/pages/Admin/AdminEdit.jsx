@@ -161,6 +161,18 @@ const AdminEdit = () => {
             </div>
           </div>
         </div>
+        <div className="mt-5">
+          <p>
+            Vous ne pouvez que modifier le
+            <span className="font-bold"> nom</span> le
+            <span className="font-bold"> prénom</span> et l'
+            <span className="font-bold"> email</span> de l'utilisateur.
+            <p>
+              Son mot de passe n'est pas modifiable ici. Seul l'utilisateur peux
+              modifier son mot de passe.
+            </p>
+          </p>
+        </div>
       </div>
     </Layout>
   );

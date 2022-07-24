@@ -162,6 +162,28 @@ const AdminAdd = () => {
             </div>
           </div>
         </div>
+        <div className="mt-5">
+          <div className="my-2">
+            Pour la création du mot de passe voilà comment ça se passera :
+            <ul className="list-disc list-inside">
+              <li>
+                Le mot de passe doit être composé d'au moins 8 caractères.
+              </li>
+              <li>
+                Il doit être composé de chiffres, lettres, caractères spéciaux.
+              </li>
+            </ul>
+          </div>
+          <p>
+            Attention <span className="font-bold">l'adresse mail</span> doit
+            être unique, si une personne possède déjà cette adresse mail, la
+            création du compte de ne se fera pas.
+          </p>
+          <p>
+            Si une erreur est détectée, n'hésitez pas à contacter votre
+            responsable pour qu'il puisse corriger l'erreur.
+          </p>
+        </div>
       </div>
     </Layout>
   );

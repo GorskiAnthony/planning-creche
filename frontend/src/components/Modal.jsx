@@ -1,13 +1,13 @@
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
 
 const Modal = ({ isOpen, toggleModal, handleDelete }) => {
-  const [open, setOpen] = useState(isOpen);
+  const [open] = useState(isOpen);
   const cancelButtonRef = useRef(null);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open}>
       <Dialog
         as="div"
         className="relative z-10"
@@ -15,7 +15,6 @@ const Modal = ({ isOpen, toggleModal, handleDelete }) => {
         onClose={toggleModal}
       >
         <Transition.Child
-          as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -29,7 +28,6 @@ const Modal = ({ isOpen, toggleModal, handleDelete }) => {
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
             <Transition.Child
-              as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               enterTo="opacity-100 translate-y-0 sm:scale-100"
