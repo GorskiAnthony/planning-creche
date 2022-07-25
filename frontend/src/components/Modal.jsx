@@ -48,7 +48,7 @@ const Modal = ({ isOpen, toggleModal, handleDelete }) => {
                       as="h3"
                       className="text-lg leading-6 font-medium text-gray-900"
                     >
-                      Supprimer le compte
+                      Supprimer l'élément
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">

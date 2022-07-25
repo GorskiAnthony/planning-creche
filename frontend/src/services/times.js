@@ -68,15 +68,6 @@ const times = [
   {
     value: "18:00",
   },
-  {
-    value: "18:30",
-  },
-  {
-    value: "19:00",
-  },
-  {
-    value: "19:30",
-  },
 ];
 
 export default times;

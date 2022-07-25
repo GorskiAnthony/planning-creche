@@ -4,7 +4,7 @@ import Layout from "@/layout/Layout.jsx";
 import Breadcrumbs from "@components/Breadcrumbs.jsx";
 import { success, error } from "@services/toast.js";
 
-const AdminAdd = () => {
+const AdminAddUser = () => {
   const firsnameRef = useRef();
   const lastnameRef = useRef();
   const emailRef = useRef();
@@ -192,4 +192,4 @@ const AdminAdd = () => {
   );
 };
 
-export default AdminAdd;
+export default AdminAddUser;

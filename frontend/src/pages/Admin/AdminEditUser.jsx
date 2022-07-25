@@ -7,7 +7,7 @@ import { UserRemoveIcon } from "@heroicons/react/solid";
 import Modal from "@components/Modal.jsx";
 import { success } from "@services/toast.js";
 
-const AdminEdit = () => {
+const AdminEditUser = () => {
   const { id } = useParams();
   const [modal, setModal] = useState(false);
 
@@ -178,4 +178,4 @@ const AdminEdit = () => {
   );
 };
 
-export default AdminEdit;
+export default AdminEditUser;
