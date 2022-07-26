@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import Layout from "@/layout/Layout.jsx";
 import Breadcrumbs from "@components/Breadcrumbs.jsx";
 import api from "@services/api.js";
@@ -8,8 +7,6 @@ import times from "@services/times.js";
 import { success } from "@services/toast.js";
 
 const AdminAddCalendar = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
   const [days, setDays] = useState([]);
   const [employees, setEmployees] = useState([]);
 
@@ -26,7 +23,7 @@ const AdminAddCalendar = () => {
       setEmployees(users.data.users);
       setCurrentCalendar({
         ...currentCalendar,
-        employeeId: users.data.users[0].firstname,
+        employeeId: users.data.users[users.data.users.length - 1].firstname,
         day: days.data.days[0].name,
       });
     });
@@ -49,7 +46,12 @@ const AdminAddCalendar = () => {
         success(
           `😎 le planning de ${currentCalendar.employeeId} a bien été ajouté`
         );
-        navigate(`/admin`);
+        setCurrentCalendar({
+          day: days.data.days[0].name,
+          timeStart: "07:00",
+          timeEnd: "13:00",
+          employeeId: users.data.users[0].firstname,
+        });
       })
       .catch(() => {
         error("❌ Une erreur est survenue");
@@ -166,6 +168,10 @@ const AdminAddCalendar = () => {
             </div>
           </div>
         </div>
+        <p>
+          Pour un planning clair, merci de renseigner chaque jour, même si celui
+          ci n'est pas travaillé. Choisir: Non travaillé
+        </p>
       </div>
     </Layout>
   );

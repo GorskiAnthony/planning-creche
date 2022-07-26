@@ -1,5 +1,8 @@
 const times = [
   {
+    value: "Non travaillé",
+  },
+  {
     value: "07:00",
   },
   {
