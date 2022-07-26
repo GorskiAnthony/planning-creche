@@ -1,5 +1,8 @@
 const times = [
   {
+    value: "Non travaillé",
+  },
+  {
     value: "07:00",
   },
   {
@@ -67,15 +70,6 @@ const times = [
   },
   {
     value: "18:00",
-  },
-  {
-    value: "18:30",
-  },
-  {
-    value: "19:00",
-  },
-  {
-    value: "19:30",
   },
 ];
 

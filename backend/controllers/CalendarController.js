@@ -143,25 +143,6 @@ class CalendarController {
         });
         return res.status(200).json({ updateEvent });
       }
-      const updateEvent = await prisma.event.updateMany({
-        where: {
-          AND: [
-            {
-              id: parseInt(req.params.id),
-            },
-            {
-              users: {
-                some: {
-                  user: {
-                    id: req.user.id,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      });
-      return res.status(200).json({ updateEvent });
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: err });
@@ -184,25 +165,6 @@ class CalendarController {
         });
         return res.status(200).json({ deleteEvent });
       }
-      const deleteEvent = await prisma.event.deleteMany({
-        where: {
-          AND: [
-            {
-              id: parseInt(req.params.id),
-            },
-            {
-              users: {
-                some: {
-                  user: {
-                    id: req.user.id,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      });
-      return res.status(200).json({ deleteEvent });
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: err });

@@ -53,8 +53,11 @@ const AdminListUsers = ({ users }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {users.map((person) => (
-                    <tr key={person.email}>
+                  {users.map((person, id) => (
+                    <tr
+                      key={person.email}
+                      className={id % 2 === 0 ? "bg-gray-50" : null}
+                    >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                         {person.lastname}
                       </td>

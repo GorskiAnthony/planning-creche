@@ -3,8 +3,10 @@ import api from "@services/api";
 import Layout from "@/layout/Layout.jsx";
 import Breadcrumbs from "@components/Breadcrumbs.jsx";
 import { success, error } from "@services/toast.js";
+import { useNavigate } from "react-router-dom";
 
-const AdminAdd = () => {
+const AdminAddUser = () => {
+  const navigate = useNavigate();
   const firsnameRef = useRef();
   const lastnameRef = useRef();
   const emailRef = useRef();
@@ -24,12 +26,8 @@ const AdminAdd = () => {
     api
       .post("/auth/register", data)
       .then((response) => {
-        success(`🔐 ${response.data.message}`);
-        firsnameRef.current.value = "";
-        lastnameRef.current.value = "";
-        emailRef.current.value = "";
-        passwordRef.current.value = "";
-        repeatPasswordRef.current.value = "";
+        success(`🔐 ${response.data.message}, Merci de remplir son planning`);
+        navigate("/admin/calendars/add");
       })
       .catch((err) => {
         console.log(err);
@@ -192,4 +190,4 @@ const AdminAdd = () => {
   );
 };
 
-export default AdminAdd;
+export default AdminAddUser;

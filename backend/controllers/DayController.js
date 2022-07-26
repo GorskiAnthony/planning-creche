@@ -30,14 +30,10 @@ class DayController {
     }
   }
 
-  static async get(req, res) {
+  static async getAll(req, res) {
     try {
-      const day = await prisma.day.findUnique({
-        where: {
-          id: parseInt(req.params.id),
-        },
-      });
-      return res.status(200).json({ day });
+      const days = await prisma.day.findMany({});
+      return res.status(200).json({ days });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }

@@ -6,8 +6,8 @@ import Login from "./Login.jsx";
 import Calendar from "./Calendar.jsx";
 import Profil from "./Profil.jsx";
 import Admin from "./Admin/Admin.jsx";
-import AdminEdit from "./Admin/AdminEdit.jsx";
-import AdminAdd from "./Admin/AdminAdd.jsx";
+import AdminEditUser from "./Admin/AdminEditUser.jsx";
+import AdminAddUser from "./Admin/AdminAddUser.jsx";
 import AdminEditCalendar from "@pages/Admin/AdminEditCalendar.jsx";
 import ProtectedRoute from "@/layout/ProtectedRoute.jsx";
 import AuthContext from "@context/AuthContextProvider.jsx";
@@ -35,7 +35,7 @@ const App = () => {
           path="/admin/users/:id"
           element={
             <ProtectedRoute user={user}>
-              <AdminEdit />
+              <AdminEditUser />
             </ProtectedRoute>
           }
         />
@@ -43,7 +43,7 @@ const App = () => {
           path="/admin/users/add"
           element={
             <ProtectedRoute user={user}>
-              <AdminAdd />
+              <AdminAddUser />
             </ProtectedRoute>
           }
         />

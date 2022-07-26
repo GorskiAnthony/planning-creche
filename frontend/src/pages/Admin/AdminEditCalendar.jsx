@@ -55,7 +55,15 @@ const AdminEditCalendar = () => {
   };
 
   const handleDelete = () => {
-    //! TODO: Delete calendar
+    api
+      .delete(`/calendars/${id}`)
+      .then(() => {
+        success(`🗑 la journée de travaille a bien été supprimée`);
+        navigate("/admin");
+      })
+      .catch((err) => {
+        error(err.message);
+      });
   };
 
   return (
@@ -105,10 +113,11 @@ const AdminEditCalendar = () => {
                           Début de journée
                         </label>
                         <Select
-                          times={times}
-                          initialTime={currentDate.timeStart}
+                          datas={times}
+                          initialData={currentDate.timeStart}
                           handleChange={handleChange}
                           name="timeStart"
+                          target="value"
                         />
                       </div>
 
@@ -120,10 +129,11 @@ const AdminEditCalendar = () => {
                           Fin de journée
                         </label>
                         <Select
-                          times={times}
-                          initialTime={currentDate.timeEnd}
+                          datas={times}
+                          initialData={currentDate.timeEnd}
                           handleChange={handleChange}
-                          name="timeEnd"
+                          name="timeStart"
+                          target="value"
                         />
                       </div>
                     </div>

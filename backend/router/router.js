@@ -29,9 +29,11 @@ router.put("/calendars/:id", userMiddleware, CalendarController.update);
 router.delete("/calendars/:id", userMiddleware, CalendarController.delete);
 
 /**
- * @api {post} /days/days Create new day
- * @api {update} /days/:id Update day
+ * @api {get} /days Get all days
+ * @api {post} /days Create new day ONLY FOR SUPER ADMIN
+ * @api {update} /days/:id Update day ONLY FOR SUPER ADMIN
  */
+router.get("/days", userMiddleware, DayController.getAll);
 router.post(
   "/days",
   userMiddleware,
