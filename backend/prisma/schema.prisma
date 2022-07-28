@@ -11,33 +11,43 @@ datasource db {
 }
 
 model User {
-    id          String @id @default(cuid())
-    firstname   String
-    lastname    String
-    email       String @unique
-    password    String
-    role        Role @default(USER)
-    forgot_pwd  String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @default(now())
-    events      Event[]
+  id         String    @id @default(cuid())
+  firstname  String
+  lastname   String
+  email      String    @unique
+  password   String
+  role       Role      @default(USER)
+  forgot_pwd String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
+  events     Event[]
+  Message    Message[]
 }
 
 model Event {
-    id          Int @id @default(autoincrement())
-    timeStart   String
-    timeEnd     String
-    employee    User @relation(fields: [employeeId] , references: [id])
-    employeeId  String
-    days        Day @relation(fields: [dayId] , references: [id])
-    dayId       Int
-    assigned    String
+  id         Int    @id @default(autoincrement())
+  timeStart  String
+  timeEnd    String
+  employee   User   @relation(fields: [employeeId], references: [id])
+  employeeId String
+  days       Day    @relation(fields: [dayId], references: [id])
+  dayId      Int
+  assigned   String
 }
 
 model Day {
-    id          Int @id @default(autoincrement())
-    name        String
-    events      Event[]
+  id     Int     @id @default(autoincrement())
+  name   String
+  events Event[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  message   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  urgency   Boolean @default(false)
+  createdAt DateTime @default(now())
 }
 
 enum Role {

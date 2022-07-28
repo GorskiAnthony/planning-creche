@@ -174,7 +174,7 @@ const Profil = () => {
         <p>
           Votre <span className="font-bold">Nom Complet</span> et votre
           <span className="font-bold"> Adresse Email</span> ne sont pas
-          modifiable, nous avons fait ça pour éviter toutes modifications
+          modifiables, nous avons fait ça pour éviter toutes modifications
           accidentelles.
         </p>
         <p>

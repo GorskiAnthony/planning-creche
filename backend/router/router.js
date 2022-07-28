@@ -6,6 +6,7 @@ const AuthController = require("../controllers/AuthController");
 const CalendarController = require("../controllers/CalendarController");
 const DayController = require("../controllers/DayController");
 const UserController = require("../controllers/UserController");
+const MessageController = require("../controllers/MessageController");
 
 /**
  * @api {post} /auth/login Login user
@@ -59,5 +60,18 @@ router.put("/users", userMiddleware, UserController.changePassword);
 router.get("/users/:id", userMiddleware, UserController.get);
 router.put("/users/:id", userMiddleware, UserController.update);
 router.delete("/users/:id", userMiddleware, UserController.delete);
+
+/**
+ * @api {get} /messages Get all messages of all user
+ * @api {post} /messages Create new message
+ * @api {get} /messages/:id Get message by id
+ * @api {update} /messages/:id Update message
+ * @api {delete} /messages/:id Delete message
+ */
+router.get("/messages", userMiddleware, MessageController.getAll);
+router.post("/messages", userMiddleware, MessageController.create);
+router.get("/messages/:id", userMiddleware, MessageController.get);
+router.put("/messages/:id", userMiddleware, MessageController.update);
+router.delete("/messages/:id", userMiddleware, MessageController.delete);
 
 module.exports = router;
