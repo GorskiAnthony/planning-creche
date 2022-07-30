@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
   const [avatar, setAvatar] = useState("");
   const [user, setUser] = useState({});
   const [isLogin, setIsLogin] = useState(false);
+  const [isPostMessage, setIsPostMessage] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("user_session");
@@ -35,6 +36,8 @@ export const AuthContextProvider = ({ children }) => {
         avatar,
         setUser,
         setIsLogin,
+        setIsPostMessage,
+        isPostMessage,
       }}
     >
       {children}

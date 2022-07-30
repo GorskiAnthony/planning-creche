@@ -3,13 +3,31 @@ const prisma = require("../services/prisma");
 class MessageController {
   static async getAll(req, res) {
     try {
+      const allMessage = await prisma.message.findMany({
+        include: {
+          author: true,
+        },
+      });
+      return res.status(200).json({ allMessage });
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ error: err });
+    }
+  }
+
+  static async getAllByUser(req, res) {
+    try {
       if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
-        const allMessage = await prisma.message.findMany({});
+        const allMessage = await prisma.message.findMany({
+          include: {
+            author: true,
+          },
+        });
         return res.status(200).json({ allMessage });
       } else {
         const allMessage = await prisma.message.findMany({
-          where: {
-            authorId: req.user.id,
+          include: {
+            author: true,
           },
         });
         return res.status(200).json({ allMessage });
@@ -49,7 +67,7 @@ class MessageController {
           createdAt: new Date(),
         },
       });
-      res.status(201).json({ message });
+      res.status(201).json({ message: "Votre message a été ajouté" });
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: err.message });
