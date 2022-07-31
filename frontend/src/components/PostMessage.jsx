@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   CheckCircleIcon,
   UserCircleIcon,
@@ -8,14 +8,22 @@ import {
 import AuthContext from "@context/AuthContextProvider";
 import api from "@services/api";
 import { success, error } from "@services/toast";
+import Modal from "@components/Modal.jsx";
 
 const PostMessage = ({ urgency, author, message, createdAt, id }) => {
+  const [modal, setModal] = useState(false);
+
   const { user, setIsPostMessage, isPostMessage } = useContext(AuthContext);
+
+  const toggleModal = () => {
+    setModal((modal) => !modal);
+  };
+
   const handleDelete = () => {
     api
       .delete(`/messages/${id}`)
       .then((res) => {
-        success(res.data.message);
+        success(`🗑 ${res.data.message}`);
         setIsPostMessage(!isPostMessage);
       })
       .catch((err) => {
@@ -29,6 +37,13 @@ const PostMessage = ({ urgency, author, message, createdAt, id }) => {
 
   return (
     <div className="my-4">
+      {modal && (
+        <Modal
+          isOpen={modal}
+          toggleModal={toggleModal}
+          handleDelete={handleDelete}
+        />
+      )}
       <div className="rounded-xl border p-5 shadow-md w-9/12 bg-white min-w-full">
         <div className="flex w-full items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
@@ -59,8 +74,8 @@ const PostMessage = ({ urgency, author, message, createdAt, id }) => {
               </span>
             </div>
             {user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? (
-              <button onClick={handleDelete}>
-                <TrashIcon className="w-5 h-5 text-red-500" />
+              <button onClick={toggleModal} type="button">
+                <TrashIcon className="w-7 h-7 bg-red-200 text-red-500 p-1 rounded-sm" />
               </button>
             ) : author.id === user.id ? (
               <>

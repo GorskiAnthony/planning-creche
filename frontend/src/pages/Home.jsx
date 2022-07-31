@@ -4,6 +4,7 @@ import FormMessage from "@components/FormMessage";
 import PostMessage from "@components/PostMessage";
 import AuthContext from "@context/AuthContextProvider";
 import api from "@services/api";
+import img from "@/assets/message.png";
 
 const Home = () => {
   const { isPostMessage } = useContext(AuthContext);
@@ -30,7 +31,12 @@ const Home = () => {
           />
         ))
       ) : (
-        <div>
+        <div className="flex mt-5">
+          <img
+            src={img}
+            alt="illustration d'un message"
+            className="h-3/6 w-3/6 "
+          />
           <p className="text-gray-500 text-xl mt-16">
             Aucun message n'a été posté pour le moment, soyez le premier à
             poster un message !
