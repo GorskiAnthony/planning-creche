@@ -11,8 +11,9 @@ import AdminAddUser from "./Admin/AdminAddUser.jsx";
 import AdminEditCalendar from "@pages/Admin/AdminEditCalendar.jsx";
 import ProtectedRoute from "@/layout/ProtectedRoute.jsx";
 import AuthContext from "@context/AuthContextProvider.jsx";
-import "react-toastify/dist/ReactToastify.css";
 import AdminAddCalendar from "@pages/Admin/AdminAddCalendar.jsx";
+import Urgency from "@pages/Urgency";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -20,6 +21,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/urgent" element={<Urgency />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/login" element={<Login />} />
         <Route path="/calendar" element={<Calendar />} />

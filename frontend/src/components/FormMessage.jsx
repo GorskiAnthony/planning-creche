@@ -1,20 +1,25 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import api from "@services/api.js";
-import { error } from "@services/toast.js";
+import { warning } from "@services/toast.js";
 import AuthContext from "@context/AuthContextProvider.jsx";
 
 const FormMessage = () => {
   const messageRef = useRef();
   const urgencyRef = useRef();
+  const [data, setData] = useState({});
   const { user, setIsPostMessage, isPostMessage } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      message: messageRef.current.value,
-      urgency: urgencyRef.current.checked,
-      authorId: user.id,
-    };
+    if (messageRef.current.value === "") {
+      warning("✋ Le message ne doit pas être vide");
+    } else {
+      setData({
+        message: messageRef.current.value,
+        urgency: urgencyRef.current.checked,
+        authorId: user.id,
+      });
+    }
 
     api
       .post("/messages", data)

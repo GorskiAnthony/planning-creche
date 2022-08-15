@@ -12,7 +12,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = ({ isAuth, user }) => {
+const Navbar = ({ user }) => {
   const { setIsLogin, avatar } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -61,92 +61,87 @@ const Navbar = ({ isAuth, user }) => {
                   >
                     Calendrier
                   </Link>
+                  <Link
+                    to="/urgent"
+                    className="border-red-100 text-red-500 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                  >
+                    Important
+                  </Link>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Profile dropdown */}
-                {!isAuth ? (
-                  <Link
-                    to="/login"
-                    className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                <Menu as="div" className="ml-3 relative">
+                  <div>
+                    <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span className="sr-only">Open user menu</span>
+                      <Avatar
+                        size={40}
+                        name={avatar}
+                        variant="beam"
+                        colors={[
+                          "#92A1C6",
+                          "#146A7C",
+                          "#F0AB3D",
+                          "#C271B4",
+                          "#C20D90",
+                        ]}
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-200"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
                   >
-                    Connexion
-                  </Link>
-                ) : (
-                  <Menu as="div" className="ml-3 relative">
-                    <div>
-                      <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <span className="sr-only">Open user menu</span>
-                        <Avatar
-                          size={40}
-                          name={avatar}
-                          variant="beam"
-                          colors={[
-                            "#92A1C6",
-                            "#146A7C",
-                            "#F0AB3D",
-                            "#C271B4",
-                            "#C20D90",
-                          ]}
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/profil"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Mon profil
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      {user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? (
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              to="/profil"
+                              to="/admin"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Votre profil
+                              Admin
                             </Link>
                           )}
                         </Menu.Item>
-                        {user.role === "ADMIN" ||
-                        user.role === "SUPER_ADMIN" ? (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/admin"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Admin
-                              </Link>
+                      ) : null}
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            onClick={handleLogout}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
                             )}
-                          </Menu.Item>
-                        ) : null}
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              onClick={handleLogout}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Déconnexion
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                )}
+                          >
+                            Déconnexion
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </div>
             </div>
           </div>

@@ -65,11 +65,17 @@ router.delete("/users/:id", userMiddleware, UserController.delete);
  * @api {get} /messages Get all messages of all user
  * @api {post} /messages Create new message
  * @api {get} /messages/:id Get message by id
+ * @api {get} /messages/urgent Get all message with flag urgent
  * @api {update} /messages/:id Update message
  * @api {delete} /messages/:id Delete message
  */
 router.get("/messages", userMiddleware, MessageController.getAll);
 router.post("/messages", userMiddleware, MessageController.create);
+router.get(
+  "/messages/urgency",
+  userMiddleware,
+  MessageController.getAllUrgency
+);
 router.get("/messages/:id", userMiddleware, MessageController.get);
 router.put("/messages/:id", userMiddleware, MessageController.update);
 router.delete("/messages/:id", userMiddleware, MessageController.delete);

@@ -2,7 +2,6 @@ import React from "react";
 import { getSpanGridRow, getSpanGridStart } from "@services/gridSpan";
 
 const CalendarDay = ({ events }) => {
-  console.log({ events });
   return (
     <div className="mr-0.5">
       <h1 className="text-center bg-gray-700 text-white text-xl p-3">

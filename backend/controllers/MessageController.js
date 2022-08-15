@@ -15,6 +15,23 @@ class MessageController {
     }
   }
 
+  static async getAllUrgency(req, res) {
+    try {
+      const allMessage = await prisma.message.findMany({
+        where: {
+          urgency: true,
+        },
+        include: {
+          author: true,
+        },
+      });
+      return res.status(200).json({ allMessage });
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ error: err });
+    }
+  }
+
   static async getAllByUser(req, res) {
     try {
       if (req.user.role === "ADMIN" || req.user.role === "SUPER_ADMIN") {
@@ -55,7 +72,7 @@ class MessageController {
   static async create(req, res) {
     try {
       const { authorId, urgency } = req.body;
-      const message = await prisma.message.create({
+      await prisma.message.create({
         data: {
           message: req.body.message,
           author: {
@@ -99,7 +116,7 @@ class MessageController {
           },
         });
         return res.status(200).json({
-          message: updateMessage.count == 0 ? "Not authorized" : "Updated",
+          message: updateMessage.count === 0 ? "Not authorized" : "Updated",
         });
       }
     } catch (err) {
@@ -125,7 +142,10 @@ class MessageController {
           },
         });
         res.status(200).json({
-          message: deleteData.count == 0 ? "Not authorized" : "Deleted",
+          message:
+            deleteData.count === 0
+              ? "Not authorized"
+              : "Le message à bien été supprimé",
         });
       }
     } catch (err) {

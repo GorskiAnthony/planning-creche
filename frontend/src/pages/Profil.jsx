@@ -66,7 +66,7 @@ const Profil = () => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-6">
+                <div className="col-span-12 sm:col-span-6">
                   <label
                     htmlFor="email-address"
                     className="block text-sm font-medium text-gray-700"
@@ -84,7 +84,7 @@ const Profil = () => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <div className="col-span-12 sm:col-span-6 lg:col-span-2">
                   <label
                     htmlFor="old_password"
                     className="block text-sm font-medium text-gray-700"
@@ -102,7 +102,7 @@ const Profil = () => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <div className="col-span-12 sm:col-span-3 lg:col-span-2">
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
@@ -120,7 +120,7 @@ const Profil = () => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <div className="col-span-12 sm:col-span-3 lg:col-span-2">
                   <label
                     htmlFor="repeat_password"
                     className="block text-sm font-medium text-gray-700"
