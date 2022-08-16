@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import api from "@services/api.js";
 import { warning } from "@services/toast.js";
 import AuthContext from "@context/AuthContextProvider.jsx";
@@ -6,31 +6,31 @@ import AuthContext from "@context/AuthContextProvider.jsx";
 const FormMessage = () => {
   const messageRef = useRef();
   const urgencyRef = useRef();
-  const [data, setData] = useState({});
   const { user, setIsPostMessage, isPostMessage } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (messageRef.current.value === "") {
-      warning("✋ Le message ne doit pas être vide");
-    } else {
-      setData({
-        message: messageRef.current.value,
-        urgency: urgencyRef.current.checked,
-        authorId: user.id,
-      });
-    }
 
-    api
-      .post("/messages", data)
-      .then(() => {
-        setIsPostMessage(!isPostMessage);
-        messageRef.current.value = "";
-        urgencyRef.current.checked = false;
-      })
-      .catch((err) => {
-        error(err.response.data.message);
-      });
+    const data = {
+      message: messageRef.current.value,
+      urgency: urgencyRef.current.checked,
+      authorId: user.id,
+    };
+
+    if (!data.message) {
+      warning("✋ Votre message ne doit pas être vide.");
+    } else {
+      api
+        .post("/messages", data)
+        .then(() => {
+          setIsPostMessage(!isPostMessage);
+          messageRef.current.value = "";
+          urgencyRef.current.checked = false;
+        })
+        .catch((err) => {
+          error(err.response.data.message);
+        });
+    }
   };
   return (
     <div className="bg-gray-50">

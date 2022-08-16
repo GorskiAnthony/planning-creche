@@ -5,7 +5,7 @@ import Breadcrumbs from "@components/Breadcrumbs.jsx";
 import api from "@services/api.js";
 import { UserRemoveIcon } from "@heroicons/react/solid";
 import Modal from "@components/Modal.jsx";
-import { success } from "@services/toast.js";
+import { error, success } from "@services/toast.js";
 
 const AdminEditUser = () => {
   const { id } = useParams();
@@ -49,12 +49,17 @@ const AdminEditUser = () => {
   };
 
   const handleDelete = () => {
-    api.delete(`/users/${id}`).then((response) => {
-      success(
-        `🗑 l'utilisateur ${currentUser.firstname} ${currentUser.lastname} a été supprimé`
-      );
-      navigate("/admin");
-    });
+    api
+      .delete(`/users/${id}`)
+      .then(() => {
+        success(
+          `🗑 l'utilisateur ${currentUser.firstname} ${currentUser.lastname} a été supprimé`
+        );
+        navigate("/admin");
+      })
+      .catch((err) => {
+        error(err.response.data.error);
+      });
   };
 
   return (

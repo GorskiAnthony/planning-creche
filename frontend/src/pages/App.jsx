@@ -13,6 +13,7 @@ import ProtectedRoute from "@/layout/ProtectedRoute.jsx";
 import AuthContext from "@context/AuthContextProvider.jsx";
 import AdminAddCalendar from "@pages/Admin/AdminAddCalendar.jsx";
 import Urgency from "@pages/Urgency";
+import NotFound from "@pages/NotFound.jsx";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
     </>

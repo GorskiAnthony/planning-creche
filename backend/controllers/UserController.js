@@ -105,7 +105,11 @@ class UserController {
         .status(200)
         .json({ message: "L'utilisateur est bien supprimé" });
     } catch (err) {
-      return res.status(400).json({ error: err.message });
+      console.log(err);
+      return res.status(400).json({
+        error:
+          "Il y a des événements liés avec cet utilisateur, impossible de le supprimer",
+      });
     }
   }
 }
